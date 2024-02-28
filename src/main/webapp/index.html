@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Buscar pokemon por nombre</title>
+    <link rel="stylesheet" type="text/css" href="assets/css/indexStyle.css">
+    <script src="assets/js/indexScript.js"></script>
+</head>
+<body>
+<h1>Buscar pokemon por nombre</h1>
+<form id="searchForm" onsubmit="searchObjects(); return false;">
+    <label for="searchTerm">Nombre del pokemon:</label>
+    <input type="text" id="searchTerm" name="searchTerm" required>
+    <input type="submit" value="Buscar">
+</form>
+
+<div id="searchResults">
+    <!-- Aquí se mostrarán los resultados de la búsqueda -->
+</div>
+<a href="pkmnList.html">Ver todos los Pokémon</a>
+</body>
+</html>
