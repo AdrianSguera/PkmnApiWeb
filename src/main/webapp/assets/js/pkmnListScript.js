@@ -1,12 +1,12 @@
-const fetchAllPokemon = async () => {
-    const allPokemon = [];
+let fetchAllPokemon = async () => {
+    let allPokemon = [];
 
     let offset = 0;
-    const limit = 20; // Número de Pokémon a obtener por página
+    let limit = 20; // Número de Pokémon a obtener por página
 
     while (true) {
-        const response = await fetch(`https://pokeapi.co/api/v2/pokemon?offset=${offset}&limit=${limit}`);
-        const data = await response.json();
+        let response = await fetch(`https://pokeapi.co/api/v2/pokemon?offset=${offset}&limit=${limit}`);
+        let data = await response.json();
 
         if (data.results.length === 0) {
             break; // No hay más Pokémon, salir del bucle
@@ -23,24 +23,24 @@ const fetchAllPokemon = async () => {
 fetchAllPokemon()
     .then(pokemonList => {
         // Una vez que se obtienen todos los Pokémon, se procesa la lista
-        const pokemonListElement = document.getElementById('pokemonList');
-        const spritePromises = [];
+        let pokemonListElement = document.getElementById('pokemonList');
+        let spritePromises = [];
 
         pokemonList.forEach(pokemon => {
             // Crear un elemento <li> para cada Pokémon
-            const listItem = document.createElement('li');
+            let listItem = document.createElement('li');
 
             // Crear un enlace para el nombre del Pokémon
-            const pokemonNameLink = document.createElement('a');
+            let pokemonNameLink = document.createElement('a');
             pokemonNameLink.textContent = pokemon.name;
             pokemonNameLink.href = `index.html?searchTerm=${encodeURIComponent(pokemon.name)}`;
             listItem.appendChild(pokemonNameLink);
 
             // Añadir la promesa de obtener el sprite del Pokémon
-            const spritePromise = fetch(pokemon.url)
+            let spritePromise = fetch(pokemon.url)
                 .then(response => response.json())
                 .then(pokemonData => {
-                    const pokemonSprite = document.createElement('img');
+                    let pokemonSprite = document.createElement('img');
                     pokemonSprite.src = pokemonData.sprites.front_default;
                     pokemonSprite.alt = pokemonData.name;
                     listItem.appendChild(pokemonSprite);

@@ -1,4 +1,4 @@
-function searchObjects() {
+function searchPokemon() {
     let searchTerm = document.getElementById('searchTerm').value.trim();
     searchPokemonByName(searchTerm);
     let newUrl = window.location.origin + window.location.pathname + '?searchTerm=' + encodeURIComponent(searchTerm);
@@ -76,3 +76,32 @@ function searchPokemonByName(searchTerm) {
             searchResultsDiv.textContent = 'Ocurrió un error al buscar el Pokémon. Por favor, intenta de nuevo más tarde.';
         });
 }
+
+/*function searchEvolutionTree(searchTerm){
+    let evolutionTreeDiv = document.getElementById('evolutionTree');
+
+    // Realizar la solicitud a la API
+    let apiUrl = "https://pokeapi.co/api/v2/pokemon/" + searchTerm.toLowerCase();
+
+    fetch(apiUrl)
+        .then(response => {
+            if (!response.ok) {
+                throw new Error('No se encontró el Pokémon.');
+            }
+            return response.json();
+        })
+        .then(data => {
+            // Limpiar los resultados anteriores
+            searchResultsDiv.innerHTML = '';
+
+            // Mostrar los resultados
+            let pokemonId = data.id;
+
+        }).then(pokemonId){
+
+    }
+        .catch(error => {
+            console.error('Error al buscar Pokémon:', error);
+            searchResultsDiv.textContent = 'Ocurrió un error al buscar el Pokémon. Por favor, intenta de nuevo más tarde.';
+        });
+}*/
