@@ -11,20 +11,26 @@ window.onload = function () {
         loadPokemonIndexPage(searchTerm);
     }
 };
-function loadPokemonIndexPage(searchTerm){
-    searchPokemonByName(searchTerm)
-        .then(data => {
-            showStatsPokemon(data);
-            return searchEvolutionTree(searchTerm);
-        })
-        .then(evolutionData => {
-            showEvolutionPokemon(evolutionData);
-            let newUrl = window.location.origin + window.location.pathname + '?searchTerm=' + encodeURIComponent(searchTerm);
-            history.pushState(null, null, newUrl);
-        })
-        .catch(error => {
-            console.error('Error al buscar Pokémon:', error);
-        });
+
+async function loadPokemonIndexPage(searchTerm) {
+    try {
+        let newUrl = window.location.origin + window.location.pathname + '?searchTerm=' + encodeURIComponent(searchTerm);
+        history.pushState(null, null, newUrl);
+
+        // Buscar el Pokémon por nombre
+        let pokemonData = await searchPokemonByName(searchTerm);
+        showStatsPokemon(pokemonData);
+
+        // Buscar la cadena de evolución del Pokémon
+        let evolutionData = await searchEvolutionTree(searchTerm);
+        showEvolutionPokemon(evolutionData);
+
+        // Buscar las características del Pokémon
+        let characteristicsData = await searchCharacteristicsPokemon(searchTerm);
+        showCharacteristicsPokemon(characteristicsData);
+    } catch (error) {
+        console.error('Error al buscar Pokémon:', error);
+    }
 }
 
 function searchPokemonByName(searchTerm) {
@@ -86,8 +92,6 @@ function showStatsPokemon(data) {
     resultContainer.appendChild(pokemonNameElement);
     resultContainer.appendChild(pokemonImageElementFront);
     resultContainer.appendChild(pokemonImageElementBack);
-
-    searchResultsDiv.appendChild(resultContainer)
 
     try {
         searchResultsDiv.appendChild(resultContainer);
@@ -206,6 +210,48 @@ function showEvolutionPokemon(evolutionData) {
         console.error('Error al mostrar la evolución del Pokémon:', error);
         evolutionTreeDiv.textContent = 'Ocurrió un error al mostrar la evolución del Pokémon. Por favor, intenta de nuevo más tarde.';
     }
+}
+
+function searchCharacteristicsPokemon(searchTerm) {
+    return searchPokemonByName(searchTerm)
+        .then(data =>{
+            return fetch('https://pokeapi.co/api/v2/characteristic/' + data.id)
+                .then(response =>{
+                    if (!response.ok) {
+                        let characteristicsDiv = document.getElementById('characteristics');
+                        characteristicsDiv.textContent = 'This pokemon does not have characteristics page.'
+                    }
+                    return response.json();
+                })
+        });
+}
+
+function showCharacteristicsPokemon(characteristicsData) {
+    let characteristicsDiv = document.getElementById('characteristics');
+        // Limpiar los resultados anteriores
+        characteristicsDiv.innerHTML = '';
+
+        // Mostrar los resultados
+        let pokemonDescriptions = characteristicsData.descriptions;
+        pokemonDescriptions.forEach(function (element){
+            let pokemonDescription = element.description;
+            if (element.language.name === 'en'){
+                let resultContainer = document.createElement('div');
+                resultContainer.classList.add('pokemon-characteristics');
+
+                let pokemonCharacteristicsElement = document.createElement('h5');
+                pokemonCharacteristicsElement.textContent = "Description: " + pokemonDescription;
+
+                resultContainer.appendChild(pokemonCharacteristicsElement);
+
+                try {
+                    characteristicsDiv.appendChild(resultContainer);
+                } catch (error) {
+                    console.error('Error al buscar Pokémon:', error);
+                    characteristicsDiv.textContent = 'Ocurrió un error al buscar el Pokémon. Por favor, intenta de nuevo más tarde.';
+                }
+            }
+        });
 }
 
 
