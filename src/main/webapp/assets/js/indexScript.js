@@ -148,20 +148,21 @@ function showEvolutionPokemon(evolutionData) {
         let table = document.createElement('table');
         table.classList.add('evolution-table');
 
+        let rowName = table.insertRow();
+        let rowImages = table.insertRow();
+
         // Función recursiva para procesar las evoluciones
         function processEvolutions(chain) {
             // Crear una nueva fila en la tabla
-            let rowName = table.insertRow();
             let cellName = rowName.insertCell();
             let evolutionLink = document.createElement('a');
             evolutionLink.textContent = chain.species.name;
             evolutionLink.href = 'index.html?searchTerm=' + chain.species.name;
-            evolutionLink.color = 'white';
 
+            cellName.th = true;
             cellName.appendChild(evolutionLink);
 
             // Crear una nueva fila en la tabla
-            let rowImages = table.insertRow();
             let cellImages = rowImages.insertCell();
 
             // Obtener la imagen de la evolución

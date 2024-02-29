@@ -4,9 +4,10 @@ body {
     background-size: cover;
     background-repeat: repeat;
     background-position: center;
-    padding: 20px; /* Ajusta el relleno según sea necesario */
-    color: white; /* Color del texto */
+    padding: 20px;
+    color: white;
     background-color: rgba(0, 0, 0, 0.5);
+    background-attachment: fixed;
 }
 
 form {
@@ -30,23 +31,26 @@ input[type="submit"]:hover {
     background-color: #0056b3;
 }
 
-.evolution-table td {
-    border: 3px solid #f0f0f0;
+/* Estilo para la tabla */
+table {
+    border-collapse: collapse;
+    width: 30%;
+}
+
+/* Estilo para las celdas de la tabla */
+td, th {
+    border: 3px solid #dddddd;
+    text-align: left;
     padding: 8px;
-    text-align: center;
 }
 
-.evolution-table td {
-    /* Estilos para el texto dentro de las celdas de la tabla */
-    font-weight: bold;
-    color: white;
+/* Estilo para las imágenes */
+img {
+    max-width: 100px; /* Ajusta el ancho máximo de las imágenes */
+    height: auto; /* Permite que la altura de las imágenes se ajuste automáticamente */
+    margin-bottom: 5px; /* Agrega un espacio entre las imágenes */
 }
 
-/* Estilos para las imágenes de las evoluciones */
-.evolution-table img {
-    max-width: 100px;
-    max-height: 100px;
-}
 
 /* Ajusta los estilos para otros elementos según sea necesario */
 h1, h2, h3, p {
