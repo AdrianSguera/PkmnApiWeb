@@ -1,6 +1,12 @@
 body {
     font-family: Arial, sans-serif;
-    background-color: #f0f0f0;
+    background-image: url('../images/background.jpg');
+    background-size: cover;
+    background-repeat: repeat;
+    background-position: center;
+    padding: 20px; /* Ajusta el relleno según sea necesario */
+    color: white; /* Color del texto */
+    background-color: rgba(0, 0, 0, 0.5);
 }
 
 form {
@@ -23,3 +29,27 @@ input[type="submit"] {
 input[type="submit"]:hover {
     background-color: #0056b3;
 }
+
+.evolution-table td {
+    border: 3px solid #f0f0f0;
+    padding: 8px;
+    text-align: center;
+}
+
+.evolution-table td {
+    /* Estilos para el texto dentro de las celdas de la tabla */
+    font-weight: bold;
+    color: white;
+}
+
+/* Estilos para las imágenes de las evoluciones */
+.evolution-table img {
+    max-width: 100px;
+    max-height: 100px;
+}
+
+/* Ajusta los estilos para otros elementos según sea necesario */
+h1, h2, h3, p {
+    color: white; /* Color del texto */
+}
+

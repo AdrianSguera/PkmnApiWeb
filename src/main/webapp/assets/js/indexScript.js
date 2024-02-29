@@ -141,24 +141,47 @@ function showEvolutionPokemon(evolutionData) {
         evolutionTitle.textContent = 'Evoluciones';
         evolutionContainer.appendChild(evolutionTitle);
 
-        // Crear un contenedor para mostrar las evoluciones
-        let resultContainer = document.createElement('div');
-        resultContainer.classList.add('evolution-result');
-
         // Acceder a la cadena de evolución
         let evolutionChain = evolutionData.chain;
 
+        // Crear una tabla para mostrar las evoluciones
+        let table = document.createElement('table');
+        table.classList.add('evolution-table');
+
         // Función recursiva para procesar las evoluciones
         function processEvolutions(chain) {
-            // Verificar si hay especies de evolución
-            if (chain.species) {
-                let pokemonEvolution = chain.species.name;
+            // Crear una nueva fila en la tabla
+            let rowName = table.insertRow();
+            let cellName = rowName.insertCell();
+            let evolutionLink = document.createElement('a');
+            evolutionLink.textContent = chain.species.name;
+            evolutionLink.href = 'index.html?searchTerm=' + chain.species.name;
+            evolutionLink.color = 'white';
 
-                let pokemonEvolutionElement = document.createElement('h5');
-                pokemonEvolutionElement.textContent = pokemonEvolution;
+            cellName.appendChild(evolutionLink);
 
-                resultContainer.appendChild(pokemonEvolutionElement);
-            }
+            // Crear una nueva fila en la tabla
+            let rowImages = table.insertRow();
+            let cellImages = rowImages.insertCell();
+
+            // Obtener la imagen de la evolución
+            searchPokemonByName(chain.species.name)
+                .then(evolutionData => {
+                    let pokemonImageFront = evolutionData.sprites.front_default;
+                    let pokemonImageBack = evolutionData.sprites.back_default;
+
+                    // Agregar la imagen de la evolución a la segunda fila
+                    let pokemonImageElementFront = document.createElement('img');
+                    pokemonImageElementFront.src = pokemonImageFront;
+                    cellImages.appendChild(pokemonImageElementFront);
+
+                    let pokemonImageElementBack = document.createElement('img');
+                    pokemonImageElementBack.src = pokemonImageBack;
+                    cellImages.appendChild(pokemonImageElementBack);
+                })
+                .catch(error => {
+                    console.error('Error al buscar imagen de evolución:', error);
+                });
 
             // Verificar si hay más evoluciones
             if (chain.evolves_to && chain.evolves_to.length > 0) {
@@ -173,8 +196,8 @@ function showEvolutionPokemon(evolutionData) {
         // Llamar a la función para procesar las evoluciones
         processEvolutions(evolutionChain);
 
-        // Agregar el contenedor de resultados al contenedor de evoluciones
-        evolutionContainer.appendChild(resultContainer);
+        // Agregar la tabla al contenedor de evoluciones
+        evolutionContainer.appendChild(table);
 
         // Agregar el contenedor de evoluciones al árbol de evolución
         evolutionTreeDiv.appendChild(evolutionContainer);
@@ -183,5 +206,6 @@ function showEvolutionPokemon(evolutionData) {
         evolutionTreeDiv.textContent = 'Ocurrió un error al mostrar la evolución del Pokémon. Por favor, intenta de nuevo más tarde.';
     }
 }
+
 
 
