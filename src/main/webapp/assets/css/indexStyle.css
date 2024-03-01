@@ -34,7 +34,6 @@ input[type="submit"]:hover {
 /* Estilo para la tabla */
 table {
     border-collapse: collapse;
-    width: 30%;
 }
 
 /* Estilo para las celdas de la tabla */

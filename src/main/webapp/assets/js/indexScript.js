@@ -155,8 +155,11 @@ function showEvolutionPokemon(evolutionData) {
         let rowName = table.insertRow();
         let rowImages = table.insertRow();
 
+        let countEvolutions = 0;
+
         // Función recursiva para procesar las evoluciones
         function processEvolutions(chain) {
+            countEvolutions ++;
             // Crear una nueva fila en la tabla
             let cellName = rowName.insertCell();
             let evolutionLink = document.createElement('a');
@@ -200,6 +203,10 @@ function showEvolutionPokemon(evolutionData) {
 
         // Llamar a la función para procesar las evoluciones
         processEvolutions(evolutionChain);
+
+        //Establezco el ancho de la tabla
+        let tableWidth = countEvolutions * 9;
+        table.style.width = tableWidth.toString() + "%";
 
         // Agregar la tabla al contenedor de evoluciones
         evolutionContainer.appendChild(table);
