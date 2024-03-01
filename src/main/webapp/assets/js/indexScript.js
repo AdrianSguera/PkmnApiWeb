@@ -142,7 +142,7 @@ function showEvolutionPokemon(evolutionData) {
     try {
         // Agregar título de evoluciones
         let evolutionTitle = document.createElement('h2');
-        evolutionTitle.textContent = 'Evoluciones';
+        evolutionTitle.textContent = 'Evolutions';
         evolutionContainer.appendChild(evolutionTitle);
 
         // Acceder a la cadena de evolución
@@ -165,6 +165,10 @@ function showEvolutionPokemon(evolutionData) {
             let evolutionLink = document.createElement('a');
             evolutionLink.textContent = chain.species.name;
             evolutionLink.href = 'index.html?searchTerm=' + chain.species.name;
+
+            // Aplicar estilos para que el enlace se vea como texto normal
+            evolutionLink.style.textDecoration = 'none'; // Elimina la subrayado del enlace
+            evolutionLink.style.color = 'inherit'; // Usa el color de texto heredado
 
             cellName.th = true;
             cellName.appendChild(evolutionLink);

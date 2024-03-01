@@ -39,7 +39,7 @@ table {
 /* Estilo para las celdas de la tabla */
 td, th {
     border: 3px solid #dddddd;
-    text-align: left;
+    text-align: center;
     padding: 8px;
 }
 
@@ -54,5 +54,9 @@ img {
 /* Ajusta los estilos para otros elementos según sea necesario */
 h1, h2, h3, p {
     color: white; /* Color del texto */
+}
+
+.all-pokemon-link {
+    margin-top: 20px;
 }
 
